@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "beautifyme.web.apps.WebConfig",
     "beautifyme.accounts.apps.AccountsConfig",
-    "beautifyme.salons.apps.SalonsConfig"
+    "beautifyme.salons.apps.SalonsConfig",
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'beautifyme.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "beautifymedb",
+        "NAME": "beautifyhourdb",
         "USER": "ivailo",
         "PASSWORD": "ivailo99",
         "HOST": "127.0.0.1",
