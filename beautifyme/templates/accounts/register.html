@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/login-and-register-page.css' %}">
+{% endblock %}
+
+{% block content %}
+    {# FIX REGISTER HEIGHT WHEN ERROR    TODO #}
+    <div class="container register-page container-vh">
+        <div class="form-wrapper register-errors">
+            <h2>Register</h2>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul class="error-list">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label>Email:</label>
+                    {{ form.email|placeholder:"Email" }}
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    {{ form.password1|placeholder:"Password" }}
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    {{ form.password2|placeholder:"Confirm Password" }}
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+{% endblock %}

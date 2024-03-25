@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home Page
+    Online shop Beauty Hour
 {% endblock %}
 
 
 {% block content %}
-    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">All Products</h1>
+                <hr>
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="product-image">
+                                        <img src="{{ product.product_image.url }}" alt="Product {{ product.name }}">
+                                    </div>
+                                    <h4>{{ product.name }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}

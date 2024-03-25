@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block title %}
+    Account Edit
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/account-edit.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-xxl content-wrapper account-edit-page">
+        <div class="col-lg-6 col-md-9 d-flex justify-content-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h2>Edit Profile</h2>
+                </div>
+                <div class="card-body">
+                    <div class="profile-info">
+                        <div class="profile-details">
+                            <form method="post" action="{% url 'profile-edit' pk=object.user.pk %}"
+                                  enctype="multipart/form-data">
+                                {% if object.profile_picture %}
+                                    <div class="ml-4">
+                                        <img src="{{ object.profile_picture.url }}" alt="Profile Picture">
+                                    </div>
+                                {% else %}
+                                    <div class="ml-4">
+                                        <img src="{% static 'images/anonymous-user.png' %}" alt="Profile Picture">
+                                    </div>
+                                {% endif %}
+                                <p>
+                                    <label class="mr-3">First Name:</label>
+                                    {{ form.first_name|placeholder:"First Name" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Last Name:</label>
+                                    {{ form.last_name|placeholder:"Last Name" }}
+                                </p>
+                                <label>Profile Image:</label>
+                                <p>
+                                    {{ form.profile_picture }}
+                                </p>
+
+
+                                <p>
+                                    <label class="mr-2">Date of birth:</label>
+                                    {{ form.date_of_birth }}
+                                </p>
+
+                                {% csrf_token %}
+                                <button class="btn btn-lg btn-save " type="submit">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

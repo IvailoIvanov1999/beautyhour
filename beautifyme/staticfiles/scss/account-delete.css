@@ -1,0 +1,112 @@
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account-details-page .card {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 5%;
+}
+
+.account-details-page .card-header {
+  background-color: #728394;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.account-details-page .profile-info {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 130px;
+  padding-right: 80px;
+}
+
+.account-details-page .profile-info .profile-details {
+  text-align: start;
+  margin-left: 18px;
+}
+
+.account-details-page .profile-info img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: 27px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-back {
+  width: 25%;
+  padding: 12px 24px;
+  color: white;
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+.button-back:after {
+  content: "";
+  background-color: #728394;
+  transition: transform 0.15s;
+  border-radius: 7px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.button-back:hover::after {
+  transform: scale(1.1);
+}
+
+.button-delete {
+  width: 25%;
+  padding: 12px 24px;
+  color: white;
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+.button-delete:after {
+  content: "";
+  background-color: red;
+  transition: transform 0.15s;
+  border-radius: 7px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.button-delete:hover::after {
+  transform: scale(1.1);
+}
+
+.salon-details {
+  display: inline-block;
+  position: relative;
+  color: black;
+}
+.salon-details a:hover {
+  text-decoration: underline;
+}
+.salon-details:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.salon-details:hover::after {
+  text-decoration: none;
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/*# sourceMappingURL=account-delete.css.map */

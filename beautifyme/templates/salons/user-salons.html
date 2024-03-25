@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Your Salons
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/user-salons.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    {% if not salons %}
+        <div class="text-center mt-5">
+            <h3> You don't have any salon yet!</h3>
+        </div>
+    {% else %}
+        <div id="carouselExampleIndicators" class="carousel slide vh-80 " data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for i, _ in salons_with_index %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ i }}"
+                        class="active"></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for salon in salons %}
+                    <div class="carousel-item carousel-container-height 
+                        {% if forloop.counter0 == 0 %} active {% endif %}"
+                    >
+                        <div class="text-center">
+                            <img class="d-inline-block carousel-img-size"
+                                 src="{{ salon.logo.url }}"
+                                 alt="{{ salon.name }}">
+                            <div class="carousel-caption d-none d-md-block text-black">
+                                <p>Click for details: <a
+                                        href="{% url 'salon-details' pk=salon.pk %}">{{ salon.name }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
