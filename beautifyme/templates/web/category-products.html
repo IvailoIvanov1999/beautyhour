@@ -1,37 +1,11 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}
-    Online shop Beauty Hour
-{% endblock %}
-
-{% block style %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    Filtered
 {% endblock %}
 
 {% block content %}
-
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Display categories -->
-                <div class="row gap-4 mr-2">
-                    {% for item in categories %}
-                        <div class="col-md-1 mb-3 mt-3">
-                            <a href="{% url 'category' item.slug %}" class="text-decoration-none">
-                                <div class="category-item"
-                                     style="background-image: url('{{ item.category_image.url }}');">
-                                    <h4 class="text-center mt-3">{{ item.name }}</h4>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                </div>
-                <hr>
-            </div>
-        </div>
-
-        <!-- Display all products -->
         <div class="row mb-3">
             {% for product in products %}
                 <div class="col-md-4">
@@ -45,7 +19,7 @@
                                     <small>{{ product.description }}</small>
                                 </div>
                                 <div class="d-flex">
-                                    <div  class="price-position">
+                                    <div class="price-position">
                                         <h4>{{ product.price }}лв.</h4>
                                     </div>
                                     <div class="cart-position">
@@ -65,11 +39,6 @@
                 </div>
             {% endfor %}
         </div>
+
     </div>
-
-
-
-
-
-
 {% endblock %}

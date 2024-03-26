@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from beautifyme.accounts.models import Profile
+from beautifyme.accounts.models import Profile, BeautyHourUser
+
+
+@admin.register(BeautyHourUser)
+class BeautyHourUserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'is_superuser', 'is_staff')
+    list_filter = ('is_superuser', 'is_staff')
+    search_fields = ('email',)
 
 
 @admin.register(Profile)
