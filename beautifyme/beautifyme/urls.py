@@ -8,4 +8,5 @@ urlpatterns = [
                   path('', include('beautifyme.web.urls')),
                   path('account/', include('beautifyme.accounts.urls')),
                   path('salon/', include('beautifyme.salons.urls')),
+                  path('product/', include('beautifyme.products.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

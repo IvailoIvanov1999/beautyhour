@@ -26,6 +26,14 @@
                             </a>
                         </div>
                     {% endfor %}
+                    <div class="col-md-1 mb-3 mt-3">
+                        <a href="{% url 'all-salons' %}" class="text-decoration-none">
+                            <div class="category-item"
+                                 style="background-image: url('{% static 'images/salon.jpg' %}');">
+                                <h4 class="text-center mt-3">Salons</h4>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 <hr>
             </div>
@@ -34,35 +42,47 @@
         <!-- Display all products -->
         <div class="row mb-3">
             {% for product in products %}
-                <div class="col-md-4">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <img class="card-img-top rounded" src="{{ product.product_image.url }}"
-                                 alt="{{ product.name }}">
-                            <div class="d-flex justify-content-between">
-                                <div class="mt-3">
-                                    <h4 class="fw-bolder card-title mt-3">{{ product.name }}</h4>
-                                    <small>{{ product.description }}</small>
-                                </div>
-                                <div class="d-flex">
-                                    <div  class="price-position">
-                                        <h4>{{ product.price }}лв.</h4>
+                {% if product.quantity > 0 %}
+                    <div class="col-md-3">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <a href="{% url 'details-product' pk=product.id %}">
+                                    <img class="card-img-top rounded" src="{{ product.product_image.url }}"
+                                         alt="{{ product.name }}">
+                                </a>
+                                <div class="d-flex justify-content-between">
+                                    <div class="mt-3">
+                                        <h4 class="fw-bolder card-title mt-3">{{ product.name }}</h4>
+                                        <small>{{ product.description }}</small>
                                     </div>
-                                    <div class="cart-position">
-                                        {#                                    <form method="POST" action="{% url 'add_to_cart' %}">#}
-                                        <form>
-                                            {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{ product.id }}">
-                                            <button type="submit" class="border-0 bg-transparent">
-                                                <i class="fas fa-shopping-cart text-black"></i>
-                                            </button>
-                                        </form>
+                                    <div class="d-flex">
+                                        <div class="price-position">
+                                            <h4>{{ product.price }}лв.</h4>
+                                        </div>
+
+                                        <div class="cart-position">
+                                            {% if not request.user.is_authenticated %}
+                                                <a href="{% url 'login' %}"><i
+                                                        class="fas cart-position-anonymous-user fa-shopping-cart text-black ml-n4"></i></a>
+
+                                            {% else %}
+                                                <form action="{% url 'add-to-cart' product_id=product.id %}"
+                                                      method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <button type="submit" class="border-0 bg-transparent">
+                                                        <i class="fas fa-shopping-cart text-black"></i>
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

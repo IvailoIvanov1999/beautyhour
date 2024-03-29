@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Product Details
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/product-details.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-xxl content-wrapper product-details-page">
+        <div class="d-flex justify-content-center">
+            <div class="card mt-3 ">
+                <div class="card-header">
+                    <h2>Product Details</h2>
+                </div>
+                <div class="card-body">
+                    <div class="product-info">
+                        <div class="ml-2">
+                            <img src="{{ object.product_image.url }}" alt="Profile Picture">
+                        </div>
+                        <div class="product-details">
+                            <p class="mt-4"><strong>Product Name:</strong> {{ object.name }}</p>
+                            <p class="mt-4"><strong>Price:</strong> {{ object.price }}лв.</p>
+                            <p class="mt-4"><strong>Description:</strong> {{ object.description }}</p>
+                            <p class="mt-4"><strong>Category:</strong> {{ object.category.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

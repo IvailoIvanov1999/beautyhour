@@ -8,16 +8,18 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 {% if request.user.is_authenticated %}
-                    {% if request.user.is_staff %}
+                    {% if request.user.is_staff or request.user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link text-white"
-                               href="#">Add Products</a>
+                               href="{% url 'add-product' %}">Add Products</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'index' %}">Home</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'profile-details' pk=request.user.pk %}">Profile</a>
                     </li>
@@ -29,6 +31,9 @@
                             <a class="nav-link text-white" href="{% url 'user-salons' %}">Your Salons</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'my-cart' user_id=request.user.pk %}">My Cart</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
                     </li>

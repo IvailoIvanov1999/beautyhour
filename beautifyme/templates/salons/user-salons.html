@@ -15,7 +15,7 @@
             <h3> You don't have any salon yet!</h3>
         </div>
     {% else %}
-        <div id="carouselExampleIndicators" class="carousel slide vh-80 " data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel mt-2 slide vh-80 " data-ride="carousel">
             <ol class="carousel-indicators">
                 {% for i, _ in salons_with_index %}
                     <li data-target="#carouselExampleIndicators" data-slide-to="{{ i }}"

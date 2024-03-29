@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Add Product
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/add-product.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-xxl content-wrapper add-product-page">
+        <div class="col-md-9 d-flex justify-content-center">
+            <div class="card mt-3 mb-3">
+                <div class="card-header">
+                    <h2>Add Product</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'add-product' %}" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+                        <button class="btn btn-lg button-save" type="submit">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
