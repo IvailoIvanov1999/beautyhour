@@ -1,17 +1,19 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import mixins as auth_mixins
 from django.db.models import Sum, F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import generic as views
 from django.urls import reverse
 
-from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin, OwnerRequiredMixin, \
-    IsStaffPermissionsRequiredMixin, IsSuperuserOrIsStaffPermissionsRequiredMixin
+from beautifyme.core.view_mixins import OwnerRequiredMixin, \
+    IsSuperuserOrIsStaffPermissionsRequiredMixin
 from beautifyme.products.models import Product, Category, ProductCart, Order
 
 from django.db import IntegrityError
 
 
+@login_required
 def remove_from_cart(request):
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
@@ -144,5 +146,5 @@ class AllOrdersView(IsSuperuserOrIsStaffPermissionsRequiredMixin, views.ListView
     queryset = Order.objects.all().order_by('-id')
 
 
-class ThanksPurchaseView(views.TemplateView):
+class ThanksPurchaseView(auth_mixins.LoginRequiredMixin, views.TemplateView):
     template_name = 'web/thanks-for-purchase.html'
