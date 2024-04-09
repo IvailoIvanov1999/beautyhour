@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'beautifyme.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "beautifyhourdb",
-        "USER": "ivailo",
-        "PASSWORD": "ivailo99",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -147,5 +147,5 @@ LOGIN_REDIRECT_URL = reverse_lazy("index")
 LOGIN_URL = reverse_lazy("login")
 LOGOUT_REDIRECT_URL = reverse_lazy("index")
 
-MAILJET_API_KEY = '0486c85f57d46b7f3836bb1040eb6bb1'
-MAILJET_SECRET_KEY = '632e9dc73e61420ee16819b7ea699676'
+MAILJET_API_KEY = config('MAILJET_API_KEY')
+MAILJET_SECRET_KEY = config('MAILJET_SECRET_KEY')
