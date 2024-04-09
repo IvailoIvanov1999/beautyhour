@@ -5,7 +5,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views import generic as views
 from django.urls import reverse
 
-from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin
+from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin, OwnerRequiredMixin, \
+    IsStaffPermissionsRequiredMixin, IsSuperuserOrIsStaffPermissionsRequiredMixin
 from beautifyme.products.models import Product, Category, ProductCart, Order
 
 from django.db import IntegrityError
@@ -90,27 +91,23 @@ class CategoryProductsView(views.ListView):
         return context
 
 
-class MyCartView(views.ListView):
+class MyCartView(OwnerRequiredMixin, views.ListView):
     template_name = 'web/my-cart.html'
     context_object_name = 'cart_products'
 
     def get_queryset(self):
-        user_id = self.kwargs.get('user_id')
-        if user_id:
-            return ProductCart.objects.filter(user_id=user_id)
-        else:
-            return ProductCart.objects.none()
+        user_id = self.request.user.id
+        return ProductCart.objects.filter(user_id=user_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_id = self.kwargs.get('user_id')
-        if user_id:
-            total_price = ProductCart.objects.filter(user_id=user_id).aggregate(
-                total_price=Sum(F('product__price') * F('quantity')))
-            total_count = ProductCart.objects.filter(user_id=user_id).aggregate(total_count=Sum('quantity'))
+        user_id = self.request.user.id
+        total_price = ProductCart.objects.filter(user_id=user_id).aggregate(
+            total_price=Sum(F('product__price') * F('quantity')))
+        total_count = ProductCart.objects.filter(user_id=user_id).aggregate(total_count=Sum('quantity'))
 
-            context['total_price'] = total_price['total_price'] if total_price['total_price'] is not None else 0
-            context['total_count'] = total_count['total_count'] if total_count['total_count'] is not None else 0
+        context['total_price'] = total_price['total_price'] if total_price['total_price'] is not None else 0
+        context['total_count'] = total_count['total_count'] if total_count['total_count'] is not None else 0
 
         return context
 
@@ -141,7 +138,7 @@ def order_proceed_view(request):
         return HttpResponse('Invalid request')
 
 
-class AllOrdersView(AdminPermissionsRequiredMixin, views.ListView):
+class AllOrdersView(IsSuperuserOrIsStaffPermissionsRequiredMixin, views.ListView):
     template_name = 'web/all-orders-for-staff-only.html'
     context_object_name = 'orders'
     queryset = Order.objects.all().order_by('-id')

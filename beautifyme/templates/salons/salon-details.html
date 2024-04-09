@@ -18,6 +18,7 @@
                     <h2>Salon Details</h2>
                 </div>
                 <div class="card-body">
+
                     <div class="row mt-1">
                         <div class="col-lg-4 order-lg-1 card-content">
                             <div class="mt-4">
@@ -25,7 +26,18 @@
                             </div>
                         </div>
                         <div class="col-lg-5 order-lg-2">
-                            <div class="profile-details">
+                            <div class="salon-details">
+                                <div class="mt-4">
+                                    <p><strong>Appointments: </strong></p>
+                                    <ul>
+                                        {% for appointment in object.appointment_set.all %}
+                                            <li>{{ appointment.date|date:"d.m.Y" }} г.</li>
+                                            <p class="border-bottom border-width"></p>
+                                        {% empty %}
+                                            No Appointments
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                                 <p class="mt-4"><strong>Salon Name:</strong> {{ object.name }}</p>
                                 {% if object.description %}
                                     <p class="mt-4"><strong>Description:</strong> {{ object.description }}</p>

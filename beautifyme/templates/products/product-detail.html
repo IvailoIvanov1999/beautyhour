@@ -33,8 +33,10 @@
                             <div class="d-flex justify-content-evenly ml-4">
                                 <a class="btn btn-lg button-edit"
                                    href="{% url 'edit-product' pk=object.pk %}">Edit</a>
-                                <a class="btn btn-lg button-delete"
-                                   href="{% url 'delete-product' pk=object.pk %}">Delete</a>
+                                {% if request.user.is_superuser %}
+                                    <a class="btn btn-lg button-delete"
+                                       href="{% url 'delete-product' pk=object.pk %}">Delete</a>
+                                {% endif %}
                             </div>
                         {% endif %}
                     {% endif %}

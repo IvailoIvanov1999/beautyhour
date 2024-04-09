@@ -4,11 +4,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
-from beautifyme.core.view_mixins import OwnerRequiredMixin
+from beautifyme.core.view_mixins import OwnerRequiredMixin, AdminPermissionsRequiredMixin
 from beautifyme.salons.forms import SalonCreateForm, SalonEditForm
 from beautifyme.salons.models import Salon, Appointment
-from django.utils import timezone
-from django.http import HttpResponseBadRequest
 
 
 class AllSalonsView(views.ListView):
@@ -45,10 +43,11 @@ class SalonDetailsView(views.DetailView):
     template_name = 'salons/salon-details.html'
 
     def get_queryset(self):
-        return Salon.objects.filter(pk=self.kwargs['pk'])
+        queryset = Salon.objects.filter(pk=self.kwargs['pk'])
+        queryset = queryset.prefetch_related('appointment_set')
+        return queryset
 
-
-class SalonEditView(OwnerRequiredMixin, views.UpdateView):
+class SalonEditView(AdminPermissionsRequiredMixin, OwnerRequiredMixin, views.UpdateView):
     form_class = SalonEditForm
     template_name = 'salons/salon-edit.html'
 
@@ -61,7 +60,7 @@ class SalonEditView(OwnerRequiredMixin, views.UpdateView):
         })
 
 
-class SalonDeleteView(OwnerRequiredMixin, views.DeleteView):
+class SalonDeleteView(AdminPermissionsRequiredMixin, OwnerRequiredMixin, views.DeleteView):
     model = Salon
     template_name = 'salons/salon-delete.html'
     success_url = reverse_lazy('user-salons')

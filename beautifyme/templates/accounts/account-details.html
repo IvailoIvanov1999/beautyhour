@@ -43,8 +43,11 @@
                                 <ul>
                                     {% for appointment in appointments %}
                                         <li class="border-bottom w-75 mb-3">
-                                            <p><strong>Salon:</strong> {{ appointment.salon.name }}</p>
-                                            <p><strong>Date:</strong> {{ appointment.date }}</p>
+                                            <p><strong>Salon:</strong><a class="btn salon-details"
+                                                                         href="{% url 'salon-details' pk=appointment.salon_id %}">
+                                                {{ appointment.salon.name }}</a>
+                                            </p>
+                                            <p><strong>Date:</strong> {{ appointment.date|date:"d.m.Y" }} г.</p>
                                         </li>
                                     {% endfor %}
                                 </ul>

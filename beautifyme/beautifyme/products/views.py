@@ -2,12 +2,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
-from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin
+from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin, IsStaffPermissionsRequiredMixin, \
+    IsSuperuserOrIsStaffPermissionsRequiredMixin
 from beautifyme.products.forms import AddProductForm, EditProductForm
 from beautifyme.products.models import Product
 
 
-class AddProduct(AdminPermissionsRequiredMixin, views.CreateView):
+class AddProduct(IsSuperuserOrIsStaffPermissionsRequiredMixin, views.CreateView):
     model = Product
     form_class = AddProductForm
     template_name = 'products/add-products.html'
@@ -29,7 +30,7 @@ class ProductDetailsView(views.DetailView):
             return Product.objects.none()
 
 
-class ProductEditView(views.UpdateView):
+class ProductEditView(IsSuperuserOrIsStaffPermissionsRequiredMixin, views.UpdateView):
     form_class = EditProductForm
     template_name = 'products/edit-product.html'
 
@@ -42,7 +43,7 @@ class ProductEditView(views.UpdateView):
         })
 
 
-class ProductDeleteView(views.DeleteView):
+class ProductDeleteView(AdminPermissionsRequiredMixin, views.DeleteView):
     model = Product
     template_name = 'products/delete-product.html'
     success_url = reverse_lazy('index')
