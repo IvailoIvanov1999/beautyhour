@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from beautifyme.accounts.models import Profile
+
 
 def salon_image_upload_path(instance, filename):
     basefilename, extension = os.path.splitext(filename)
@@ -12,14 +14,6 @@ def salon_image_upload_path(instance, filename):
 
 
 UserModel = get_user_model()
-
-
-class Service(models.Model):
-    name = models.CharField(max_length=150)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name
 
 
 class Salon(models.Model):
@@ -54,7 +48,16 @@ class Salon(models.Model):
     logo = models.ImageField(upload_to=salon_image_upload_path, null=False, blank=False)
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='owned_salons')
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='owned_salons')
 
     def __str__(self):
         return self.name
+
+
+class Appointment(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        return f"Appointment for {self.profile.full_name} at {self.salon.name} on {self.date}"

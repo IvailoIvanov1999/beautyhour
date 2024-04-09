@@ -9,6 +9,7 @@ from django.views import generic as views
 from beautifyme.accounts.forms import BeautyHourUserCreationForm
 from beautifyme.accounts.models import BeautyHourUser, Profile
 from beautifyme.core.view_mixins import OwnerRequiredMixin
+from beautifyme.salons.models import Appointment
 
 
 class SignInUserView(auth_views.LoginView):
@@ -40,10 +41,17 @@ class ProfileDetailsView(OwnerRequiredMixin, views.DetailView):
     def get_queryset(self):
         return Profile.objects.select_related("user").filter(user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        appointments = profile.appointment_set.all()
+        context['appointments'] = appointments.order_by('-date')
+        return context
+
 
 class ProfileUpdateView(OwnerRequiredMixin, views.UpdateView):
     template_name = "accounts/account-edit.html"
-    fields = ("first_name", "last_name", "profile_picture", "date_of_birth")
+    fields = ("first_name", "last_name", "address", "profile_picture", "date_of_birth")
 
     def get_object(self, queryset=None):
         return self.request.user.profile

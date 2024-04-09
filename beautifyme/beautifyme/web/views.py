@@ -1,8 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views import generic as views
 from django.urls import reverse
-from beautifyme.products.models import Product, Category, ProductCart
+
+from beautifyme.core.view_mixins import AdminPermissionsRequiredMixin
+from beautifyme.products.models import Product, Category, ProductCart, Order
 
 from django.db import IntegrityError
 
@@ -15,7 +19,12 @@ def remove_from_cart(request):
         try:
             if request.user.is_authenticated:
                 cart_item = ProductCart.objects.get(user=request.user, product=product)
-                cart_item.delete()
+
+                if cart_item.quantity > 1:
+                    cart_item.quantity -= 1
+                    cart_item.save()
+                else:
+                    cart_item.delete()
 
                 product.quantity += 1
                 product.save()
@@ -29,6 +38,7 @@ def remove_from_cart(request):
     return HttpResponse("Invalid request.")
 
 
+@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
 
@@ -55,7 +65,7 @@ class HomePageView(views.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.all()
+        return Product.objects.filter(quantity__gt=0)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,3 +100,52 @@ class MyCartView(views.ListView):
             return ProductCart.objects.filter(user_id=user_id)
         else:
             return ProductCart.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        if user_id:
+            total_price = ProductCart.objects.filter(user_id=user_id).aggregate(
+                total_price=Sum(F('product__price') * F('quantity')))
+            total_count = ProductCart.objects.filter(user_id=user_id).aggregate(total_count=Sum('quantity'))
+
+            context['total_price'] = total_price['total_price'] if total_price['total_price'] is not None else 0
+            context['total_count'] = total_count['total_count'] if total_count['total_count'] is not None else 0
+
+        return context
+
+
+@login_required
+def order_proceed_view(request):
+    if request.method == 'POST':
+        user = request.user
+
+        if user.id:
+            cart_products = ProductCart.objects.filter(user_id=user.id)
+
+            total_price = cart_products.aggregate(total_price=Sum(F('product__price') * F('quantity')))['total_price']
+
+            total_quantity = cart_products.aggregate(total_quantity=Sum('quantity'))['total_quantity']
+
+            order = Order.objects.create(user=user, total_price=total_price, quantity=total_quantity)
+
+            product_names = ', '.join([product_in_cart.product.name for product_in_cart in cart_products])
+            order.product_names = product_names
+            order.save()
+
+            user_cart_products = user.productcart_set.all()
+            user_cart_products.delete()
+
+            return redirect('thanks-purchase')
+
+        return HttpResponse('Invalid request')
+
+
+class AllOrdersView(AdminPermissionsRequiredMixin, views.ListView):
+    template_name = 'web/all-orders-for-staff-only.html'
+    context_object_name = 'orders'
+    queryset = Order.objects.all().order_by('-id')
+
+
+class ThanksPurchaseView(views.TemplateView):
+    template_name = 'web/thanks-for-purchase.html'

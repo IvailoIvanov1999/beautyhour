@@ -1,7 +1,5 @@
 import os
 
-from django.contrib.auth.hashers import make_password
-from django.core.validators import MinValueValidator
 from django.db import models
 
 from django.utils.translation import gettext_lazy as _
@@ -49,6 +47,7 @@ class BeautyHourUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin)
 class Profile(models.Model):
     MAX_FIRST_NAME_LENGTH = 30
     MAX_LAST_NAME_LENGTH = 30
+    MAX_ADDRESS_LENGTH = 300
 
     first_name = models.CharField(
         max_length=MAX_FIRST_NAME_LENGTH,
@@ -62,9 +61,22 @@ class Profile(models.Model):
         null=True,
     )
 
-    profile_picture = models.ImageField(upload_to=profile_image_upload_path, null=True, blank=True)
+    address = models.CharField(
+        max_length=MAX_ADDRESS_LENGTH,
+        null=False,
+        blank=False,
+    )
 
-    date_of_birth = models.DateField(null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to=profile_image_upload_path,
+        null=True,
+        blank=True,
+    )
+
+    date_of_birth = models.DateField(
+        null=True,
+        blank=True,
+    )
 
     user = models.OneToOneField(
         BeautyHourUser,

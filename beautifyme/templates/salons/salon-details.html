@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-1">
-                        <div class="col-lg-4 order-lg-1 card-content ">
+                        <div class="col-lg-4 order-lg-1 card-content">
                             <div class="mt-4">
                                 <img src="{{ object.logo.url }}" alt="Profile Picture" class="img-fluid">
                             </div>
@@ -38,8 +38,33 @@
                             </div>
                         </div>
                     </div>
+                    {% if request.user.is_authenticated %}
+                        <div class="text-center mb-3 mt-1">
+                            <button id="appointmentBtn" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#appointmentModal">Make Appointment
+                            </button>
+                        </div>
+                    {% else %}
+                        <div class="text-center mb-3 mt-1">
+                            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary"
+                            >Make Appointment
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {% include 'partials/appointment-modal.html' %}
+
+                    {% if request.user.pk == object.user_id %}
+                        <div class="d-flex justify-content-around">
+                            <a class="btn btn-lg button-edit"
+                               href="{% url 'salon-edit' pk=object.pk %}">Edit</a>
+                            <a class="btn btn-lg button-delete"
+                               href="{% url 'salon-delete' pk=object.pk %}">Delete</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+

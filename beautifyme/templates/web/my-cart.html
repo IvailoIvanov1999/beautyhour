@@ -17,10 +17,11 @@
                 <h3> Your cart is empty </h3>
             </div>
         {% endif %}
+
         <!-- Display all products in cart -->
-        <div class="row mb-3">
+        <div class="row mb-5">
             {% for product in cart_products %}
-                <div class="col-md-3">
+                <div class="col-md-3 col-lg-3">
                     <div class="card mt-4">
                         <form action="{% url 'remove-from-cart' %}" method="post" style="display: inline;">
                             {% csrf_token %}
@@ -35,8 +36,9 @@
                             </a>
                             <div class="d-flex justify-content-between">
                                 <div class="mt-3">
-                                    <h4 class="fw-bolder card-title mt-3 max-text-length">{{ product.product.name }}</h4>
-                                    <small>{{ product.product.description }}</small>
+                                    <h4 class="fw-bolder card-title product-title">{{ product.product.name }}</h4>
+                                    <p>{{ product.product.description }}</p>
+                                    <p>Quantity: <b>{{ product.quantity }}</b></p>
                                 </div>
                                 <div class="price-position">
                                     <h4>{{ product.product.price }}лв.</h4>
@@ -47,8 +49,35 @@
                 </div>
             {% endfor %}
         </div>
+        <hr>
+        <div class="d-flex flex-column mb-3">
+            {% include 'partials/modal-user-checkout.html' %}
+            <div class="mb-2 text-end">
+                <h3>Total Price: <span class="fw-bolder">
+                    {% if total_price %}
+                        {{ total_price }} лв.
+                    {% else %}
+                        0 лв.
+                    {% endif %}
+                </span>
+                </h3>
+            </div>
+            <div class="mb-2 text-end">
+                <h3>Products: <span class="fw-bolder">{{ total_count }} бр.</span></h3>
+            </div>
+            <div class="text-end mt-3">
+                <button class="btn btn-primary align-items-center" data-toggle="modal" data-target="#paymentModal"
+                        {% if not user.profile.first_name or not user.profile.last_name or not user.profile.address or cart_products.count < 1 %}
+                        disabled {% endif %}>
+                    {% if cart_products.count < 1 %}
+                        <span class="help-text">Please add products first</span>
+                    {% elif not user.profile.first_name or not user.profile.last_name or not user.profile.address %}
+                        <span class="help-text">Please complete your profile information to proceed</span>
+                    {% else %}
+                        Proceed to Checkout
+                    {% endif %}
+                </button>
+            </div>
+        </div>
     </div>
-
-
-
 {% endblock %}

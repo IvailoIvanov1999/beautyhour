@@ -39,16 +39,22 @@
                                     <label class="mr-3">Last Name:</label>
                                     {{ form.last_name|placeholder:"Last Name" }}
                                 </p>
+                                <p>
+                                    <label class="mr-3">Address:</label>
+                                    {{ form.address|placeholder:"Address" }}
+                                </p>
                                 <label>Profile Image:</label>
                                 <p>
                                     {{ form.profile_picture }}
                                 </p>
-
-
                                 <p>
                                     <label class="mr-2">Date of birth:</label>
                                     {{ form.date_of_birth }}
                                 </p>
+
+                                {% if form.errors.date_of_birth %}
+                                    <span class="error">{{ form.errors.date_of_birth }}</span>
+                                {% endif %}
 
                                 {% csrf_token %}
                                 <button class="btn btn-lg btn-save " type="submit">Save</button>

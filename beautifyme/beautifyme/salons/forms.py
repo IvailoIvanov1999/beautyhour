@@ -1,6 +1,8 @@
 from django import forms
 
-from beautifyme.salons.models import Salon
+from beautifyme.salons.models import Salon, Appointment
+
+from django.utils import timezone
 
 
 class SalonCreateForm(forms.ModelForm):

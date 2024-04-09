@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% load static %}
+
+{% block title %}
+    Product Edit
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/product-edit.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container content-wrapper product-edit-page">
+        <div class="col-lg-6 col-md-9 d-flex justify-content-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h2>Product Edit</h2>
+                </div>
+                <div class="card-body">
+                    <div class="profile-info">
+                        <div class="profile-details">
+                            <form method="post" action="{% url 'edit-product' pk=object.pk %}"
+                                  enctype="multipart/form-data">
+
+                                {% if object.product_image %}
+                                    <div class="ml-4">
+                                        <img src="{{ object.product_image.url }}" alt="Product Picture">
+                                    </div>
+                                {% endif %}
+                                <p>
+                                    <label class="mr-3">Product Name:</label>
+                                    {{ form.name|placeholder:"Product Name" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Description:</label>
+                                    {{ form.description|placeholder:"Description" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Price:</label>
+                                    {{ form.price|placeholder:"Price" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Quantity:</label>
+                                    {{ form.quantity|placeholder:"Quantity" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Product Image:</label>
+                                    {{ form.product_image|placeholder:"Product Image" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Category:</label>
+                                    {{ form.category|placeholder:"Category" }}
+                                </p>
+                                {% csrf_token %}
+                                <button class="btn btn-lg btn-save " type="submit">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

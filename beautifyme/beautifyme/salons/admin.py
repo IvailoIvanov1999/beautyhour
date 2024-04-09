@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from beautifyme.salons.models import Salon, Service
+from beautifyme.salons.models import Salon, Appointment
 
 
-@admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('name',  'description')
-    list_filter = ('name',)
-    search_fields = ('name',)
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'date')
+    list_filter = ('date',)
+    search_fields = ('profile',)
 
 
 @admin.register(Salon)

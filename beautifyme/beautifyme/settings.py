@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 
@@ -128,6 +128,8 @@ STATICFILES_DIRS = (
     BASE_DIR / "staticfiles",
 )
 
+STATIC_ROOT = BASE_DIR / "static"
+
 # Define the directory where uploaded files will be stored
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
@@ -144,3 +146,6 @@ AUTH_USER_MODEL = 'accounts.BeautyHourUser'
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 LOGIN_URL = reverse_lazy("login")
 LOGOUT_REDIRECT_URL = reverse_lazy("index")
+
+MAILJET_API_KEY = '0486c85f57d46b7f3836bb1040eb6bb1'
+MAILJET_SECRET_KEY = '632e9dc73e61420ee16819b7ea699676'

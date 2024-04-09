@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Your Appointment
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <div class="mt-5">
+            <h1>Your appointment for the salon has been placed!</h1>
+            <p>You can see more details in your profile.</p>
+            <img src="{% static 'images/checkmark.jpg' %} " alt="checkmark" height="100px">
+        </div>
+    </div>
+{% endblock %}

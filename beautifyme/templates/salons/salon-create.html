@@ -18,11 +18,13 @@
                     <h2>Salon Create</h2>
                 </div>
                 <div class="card-body">
+                    <h5 class="text-center">All fields are required !</h5>
                     <form action="{% url 'salon-create' %}" method="post" enctype="multipart/form-data">
 
                         {% csrf_token %}
 
                         {{ form.as_p }}
+
                         <button class="btn btn-lg button-save" type="submit">Create</button>
                     </form>
                 </div>

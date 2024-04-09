@@ -1,10 +1,71 @@
 {% extends 'base.html' %}
+{% load filters %}
+{% load static %}
 
 {% block title %}
     Salon Edit
 {% endblock %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/salon-edit.css' %}">
+{% endblock %}
 
 {% block content %}
-
+    <div class="container content-wrapper salon-edit-page">
+        <div class="col-lg-6 col-md-9 d-flex justify-content-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h2>Edit Salon</h2>
+                </div>
+                <div class="card-body">
+                    <div class="profile-info">
+                        <div class="profile-details">
+                            <form method="post" action="{% url 'salon-edit' pk=object.pk %}"
+                                  enctype="multipart/form-data">
+                                {% if object.logo %}
+                                    <div class="ml-4">
+                                        <img src="{{ object.logo.url }}" alt="Salon Logo Picture">
+                                    </div>
+                                {% else %}
+                                    <div class="ml-4">
+                                        <img src="{% static 'images/anonymous-user.png' %}" alt="Profile Picture">
+                                    </div>
+                                {% endif %}
+                                <p>
+                                    <label class="mr-3">Salon Name:</label>
+                                    {{ form.name|placeholder:"Salon Name" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Description:</label>
+                                    {{ form.description|placeholder:"Description" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">City:</label>
+                                    {{ form.city|placeholder:"City" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Phone Number:</label>
+                                    {{ form.phone_number|placeholder:"Phone Number" }}
+                                </p>
+                                <p>
+                                    <label class="mr-3">Address:</label>
+                                    {{ form.email_address|placeholder:"Email" }}
+                                </p>
+                                <label>Salon Logo:</label>
+                                <p>
+                                    {{ form.logo }}
+                                </p>
+                                <p>
+                                    <label class="mr-2">Address:</label>
+                                    {{ form.address|placeholder:"Address" }}
+                                </p>
+                                {% csrf_token %}
+                                <button class="btn btn-lg btn-save " type="submit">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

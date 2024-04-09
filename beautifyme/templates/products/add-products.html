@@ -18,6 +18,7 @@
                     <h2>Add Product</h2>
                 </div>
                 <div class="card-body">
+                    <h5 class="text-center">All fields are required !</h5>
                     <form action="{% url 'add-product' %}" method="post" enctype="multipart/form-data">
 
                         {% csrf_token %}

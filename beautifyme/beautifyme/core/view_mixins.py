@@ -12,3 +12,9 @@ class OwnerRequiredMixin(auth_mixins.LoginRequiredMixin):
             raise PermissionDenied
 
         return obj
+
+
+class AdminPermissionsRequiredMixin(auth_mixins.UserPassesTestMixin):
+    def test_func(self):
+        user = self.request.user
+        return user.is_superuser or user.is_staff

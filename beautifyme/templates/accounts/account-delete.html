@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-xxl content-wrapper account-details-page">
+    <div class="container-xxl content-wrapper account-delete-page">
         <div class="col-lg-6 col-md-9 d-flex justify-content-center">
             <div class="card mt-3">
                 <div class="card-header">
@@ -19,7 +19,6 @@
                 </div>
                 <form action="{% url "profile-delete" pk=object.user.pk %}" method="post">
                     <div class="card-body">
-
                         <div class="profile-info">
                             {% if object.profile_picture %}
                                 <div class="ml-2">
@@ -48,8 +47,6 @@
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
-                                {#                        <p><strong>Total Orders:</strong>  TODO </p>#}
-                                {#                        <p><strong>Total Money Spent:</strong> TODO </p> #}
                                 {% if object.date_of_birth %}
                                     <p class="mt-4"><strong>Date of
                                         birth:</strong> {{ object.date_of_birth|date:'d.m.Y' }}
@@ -66,8 +63,7 @@
                         <div class="d-flex justify-content-evenly ml-4">
                             <a class="btn btn-lg button-back"
                                href="{% url 'profile-details' pk=object.user.pk %}">Back</a>
-                            <button class="btn btn-lg button-delete"
-                               href="{% url 'profile-delete' pk=object.user.pk %}">Delete</button>
+                            <button class="btn btn-lg button-delete">Delete</button>
                         </div>
                     </div>
                 </form>

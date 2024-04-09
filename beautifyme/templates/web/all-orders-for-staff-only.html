@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    All Orders
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if orders %}
+            <table class="table table-striped border-bottom">
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Email</th>
+                    <th>Total Price</th>
+                    <th>Order Created</th>
+                    <th>Products</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user }}</td>
+                        <td>{{ order.total_price }} лв.</td>
+                        <td>{{ order.created_at }}</td>
+                        <td>{{ order.product_names }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No orders available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

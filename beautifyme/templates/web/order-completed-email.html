@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order Has Been Completed</title>
+    <style>
+        /* CSS styles for the email */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .outer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .order-details {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .order-details h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .order-details p {
+            margin-bottom: 5px;
+        }
+        .thank-you {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <div class="container">
+            <h1>Your Order Has Been Completed</h1>
+            <div class="order-details">
+                <h2>Order Details: </h2>
+                <br>
+                <p><strong>Order Number:</strong> #{{ order_id }}</p>
+                <br>
+                <p><strong>Order Date:</strong> {{ order_date }}</p>
+                <br>
+                <p><strong>Shipping Address:</strong> {{ order_shipping_address }}</p>
+                <br>
+                <p><strong>Payment Method:</strong> Pay on Delivery </p>
+                <br>
+                <p><strong>Products Count:</strong> {{ products_count }} </p>
+                <br>
+                <p><strong>Total Price:</strong> {{ order_total_price }} лв.</p>
+            </div>
+            <br>
+            <p class="thank-you">Thank you for your order! Your order has been completed successfully.</p>
+            <p>We hope you enjoy your purchase!</p>
+            <br>
+            <div class="footer">
+                <p>Sincerely,<br>The Team at BeautyHour</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

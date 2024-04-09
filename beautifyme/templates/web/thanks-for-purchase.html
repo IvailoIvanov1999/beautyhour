@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Purchased
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <div class="mt-5">
+            <h1>Thanks for the purchase</h1>
+            <p>Details about your order are sent to your email!</p>
+            <img src="{% static 'images/checkmark.jpg' %} " alt="checkmark" height="100px">
+        </div>
+
+    </div>
+{% endblock %}

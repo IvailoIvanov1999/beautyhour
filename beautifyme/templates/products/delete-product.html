@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Product Delete
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/product-delete.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container content-wrapper product-delete-page">
+        <div class="d-flex justify-content-center">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h2>Product Delete</h2>
+                    <h4>Are you sure ?</h4>
+                </div>
+                <form action="{% url 'delete-product' pk=object.pk %}" method="post">
+                    <div class="card-body">
+                        <div class="product-info">
+                            <div class="ml-2">
+                                <img src="{{ object.product_image.url }}" alt="Product Picture">
+                            </div>
+                            <div class="product-details">
+                                <p class="mt-4"><strong>Product Name:</strong> {{ object.name }}</p>
+                                <p class="mt-4"><strong>Price:</strong> {{ object.price }}лв.</p>
+                                <p class="mt-4"><strong>Description:</strong> {{ object.description }}</p>
+                                <p class="mt-4"><strong>Category:</strong> {{ object.category.name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-evenly ml-4 mb-4">
+                        <a class="btn btn-lg button-back"
+                           href="{% url 'details-product' pk=object.pk %}">Back</a>
+                        <button class="btn btn-lg button-delete" type="submit">Delete</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

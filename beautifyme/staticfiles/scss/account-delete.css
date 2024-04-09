@@ -4,33 +4,33 @@
   align-items: center;
 }
 
-.account-details-page .card {
+.account-delete-page .card {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 5%;
 }
 
-.account-details-page .card-header {
+.account-delete-page .card-header {
   background-color: #728394;
   color: #fff;
   padding: 20px;
   text-align: center;
 }
 
-.account-details-page .profile-info {
+.account-delete-page .profile-info {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 130px;
   padding-right: 80px;
 }
 
-.account-details-page .profile-info .profile-details {
+.account-delete-page .profile-info .profile-details {
   text-align: start;
   margin-left: 18px;
 }
 
-.account-details-page .profile-info img {
+.account-delete-page .profile-info img {
   width: 150px;
   height: 150px;
   border-radius: 50%;

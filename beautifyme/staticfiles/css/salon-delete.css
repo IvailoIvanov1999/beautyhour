@@ -1,0 +1,120 @@
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.salon-delete-page .card {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 5%;
+}
+
+.salon-delete-page .card-header {
+  background-color: #728394;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.salon-delete-page .profile-info {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 100px;
+  padding-right: 80px;
+}
+
+.salon-delete-page .profile-info .profile-details {
+  text-align: start;
+  margin-left: 18px;
+}
+
+.salon-delete-page .profile-info img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: 27px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-edit, .button-delete {
+  width: 25%;
+  padding: 12px 24px;
+  color: white;
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.button-edit:after, .button-delete:after {
+  content: "";
+  background-color: #728394;
+  transition: transform 0.15s;
+  border-radius: 7px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.button-edit:hover::after, .button-delete:hover::after {
+  transform: scale(1.1);
+}
+
+.button-back {
+  width: 25%;
+  padding: 12px 24px;
+  color: white;
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.button-back:after {
+  content: "";
+  background-color: #728394;
+  transition: transform 0.15s;
+  border-radius: 7px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.button-back:hover::after {
+  transform: scale(1.1);
+}
+
+.button-delete {
+  width: 25%;
+  padding: 12px 24px;
+  color: white;
+  transition: transform 0.15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.button-delete:after {
+  content: "";
+  background-color: red;
+  transition: transform 0.15s;
+  border-radius: 7px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.button-delete:hover::after {
+  transform: scale(1.1);
+}
+
+.card-content {
+  margin-left: 15%;
+}
+
+
+
+/*# sourceMappingURL=salon-delete.css.map */

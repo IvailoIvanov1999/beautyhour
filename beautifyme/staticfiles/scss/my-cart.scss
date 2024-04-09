@@ -49,6 +49,8 @@
 .price-position {
   margin-top: 55px;
   display: inline-block;
+  overflow: hidden;
+  margin-left: -90px;
 }
 
 .max-text-length {
@@ -65,6 +67,10 @@
   cursor: pointer;
 }
 
-
+.product-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 /*# sourceMappingURL=index.css.map */

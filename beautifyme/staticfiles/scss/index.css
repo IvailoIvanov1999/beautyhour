@@ -44,18 +44,6 @@
   height: 250px;
 }
 
-.price-position {
-  margin-top: 55px;
-  display: inline-block;
-  margin-right: 30px;
-}
-
-.cart-position {
-  display: inline-block;
-  margin-right: 1px;
-  position: relative;
-}
-
 .cart-position form {
   position: absolute;
   bottom: 0;
@@ -70,6 +58,17 @@
 
 .cart-position-anonymous-user {
   margin-top: 60px;
+}
+
+.product-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.product-price-and-cart-position {
+  margin-top: 70px;
+  margin-left: -120px;
 }
 
 /*# sourceMappingURL=index.css.map */

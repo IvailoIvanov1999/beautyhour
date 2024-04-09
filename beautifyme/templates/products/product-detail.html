@@ -10,16 +10,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-xxl content-wrapper product-details-page">
+    <div class="container content-wrapper product-details-page">
         <div class="d-flex justify-content-center">
-            <div class="card mt-3 ">
+            <div class="card mt-1">
                 <div class="card-header">
                     <h2>Product Details</h2>
                 </div>
                 <div class="card-body">
                     <div class="product-info">
                         <div class="ml-2">
-                            <img src="{{ object.product_image.url }}" alt="Profile Picture">
+                            <img src="{{ object.product_image.url }}" alt="Product Picture">
                         </div>
                         <div class="product-details">
                             <p class="mt-4"><strong>Product Name:</strong> {{ object.name }}</p>
@@ -28,7 +28,18 @@
                             <p class="mt-4"><strong>Category:</strong> {{ object.category.name }}</p>
                         </div>
                     </div>
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_staff or request.user.is_superuser %}
+                            <div class="d-flex justify-content-evenly ml-4">
+                                <a class="btn btn-lg button-edit"
+                                   href="{% url 'edit-product' pk=object.pk %}">Edit</a>
+                                <a class="btn btn-lg button-delete"
+                                   href="{% url 'delete-product' pk=object.pk %}">Delete</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
+
             </div>
         </div>
     </div>
