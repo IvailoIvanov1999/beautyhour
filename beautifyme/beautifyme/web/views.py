@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import mixins as auth_mixins
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Q
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic as views
 from django.urls import reverse
 
@@ -68,11 +68,16 @@ class HomePageView(views.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(quantity__gt=0)
+        queryset = Product.objects.filter(quantity__gt=0)
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.filter(status=True)
+        context['search_query'] = self.request.GET.get('search', '')
         return context
 
 
@@ -82,14 +87,22 @@ class CategoryProductsView(views.ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        queryset = super().get_queryset()
         slug = self.kwargs['slug']
         category = Category.objects.get(slug=slug)
-        return Product.objects.filter(category=category)
+        queryset = queryset.filter(category=category)
+
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
         context['category'] = Category.objects.get(slug=slug)
+        context['search_query'] = self.request.GET.get('search', '')
         return context
 
 
@@ -98,8 +111,15 @@ class MyCartView(OwnerRequiredMixin, views.ListView):
     context_object_name = 'cart_products'
 
     def get_queryset(self):
-        user_id = self.request.user.id
-        return ProductCart.objects.filter(user_id=user_id)
+        queryset = ProductCart.objects.filter(user=self.request.user)
+
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = queryset.filter(
+                Q(product__name__icontains=search_query)
+            )
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

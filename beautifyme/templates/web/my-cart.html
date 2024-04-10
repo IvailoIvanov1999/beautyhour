@@ -12,17 +12,11 @@
 {% block content %}
 
     <div class="container">
-        {% if not cart_products %}
-            <div class="text-center mt-5">
-                <h3> Your cart is empty </h3>
-            </div>
-        {% endif %}
-
         <!-- Display all products in cart -->
         <div class="row mb-5">
             {% for product in cart_products %}
                 <div class="col-md-3 col-lg-3">
-                    <div class="card mt-4">
+                    <div class="card mt-4 mb-4">
                         <form action="{% url 'remove-from-cart' %}" method="post" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="product_id" value="{{ product.product_id }}">
@@ -47,6 +41,12 @@
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                {% if request.GET.search %}
+                    <h1 class="text-center mt-5">No search results found for "{{ request.GET.search }}"</h1>
+                {% else %}
+                    <h1 class="text-center mt-5">Your cart is empty</h1>
+                {% endif %}
             {% endfor %}
         </div>
         <hr>

@@ -15,7 +15,7 @@
             {% for product in products %}
                 {% if product.quantity > 0 %}
                     <div class="col-md-3">
-                        <div class="card mt-4">
+                        <div class="card mt-4 mb-4">
                             <div class="card-body">
                                 <a href="{% url 'details-product' pk=product.id %}">
                                     <img class="card-img-top rounded" src="{{ product.product_image.url }}"
@@ -49,6 +49,12 @@
                             </div>
                         </div>
                     </div>
+                {% endif %}
+            {% empty %}
+                {% if request.GET.search %}
+                    <h1 class="text-center mt-5">No search results found for "{{ request.GET.search }}"</h1>
+                {% else %}
+                    <h1 class="text-center mt-5">No products available</h1>
                 {% endif %}
             {% endfor %}
         </div>
