@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: beautyhour
+    image: ivobeautyhour/beautyhour
     build: .
     command: gunicorn --bind=0.0.0.0:8000 beautifyme.wsgi:application
     volumes:
