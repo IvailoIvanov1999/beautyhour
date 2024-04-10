@@ -1,0 +1,132 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-vh {
+  height: 85vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(90deg, rgb(1, 20, 24) 0%, rgb(140, 154, 168) 100%);
+  background-size: 600% 600%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes arrive {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+.login-page .register-errors .alert-danger, .register-page .register-errors .alert-danger {
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 120px;
+  overflow-y: visible;
+  margin-bottom: 20px;
+}
+
+.login-page .register-errors .error-list, .register-page .register-errors .error-list {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.login-page .alert-danger, .register-page .alert-danger {
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 120px;
+  overflow-y: visible;
+  margin-bottom: 20px;
+}
+
+.login-page .error-list, .register-page .error-list {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.login-page .form-wrapper, .register-page .form-wrapper {
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: arrive 500ms ease-in-out 0.9s forwards;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 500px;
+}
+
+.login-page .form-wrapper h2, .register-page .form-wrapper h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-page .form-group, .register-page .form-group {
+  margin-bottom: 15px;
+}
+
+.login-page .form-group label, .register-page .form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.login-page .form-group input, .register-page .form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-page button, .register-page button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-page button:hover, .register-page button:hover {
+  background-color: #0056b3;
+}
+
+.login-page p, .register-page p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-page p a, .register-page p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-page p a:hover, .register-page p a:hover {
+  text-decoration: underline;
+}
+
+
+
+/*# sourceMappingURL=login-and-register-page.css.map */

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    image: beautyhour
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - /.env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ivailo
+      POSTGRES_PASSWORD: ivailo99
+      POSTGRES_DB: beautifyhourdb
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/docker/volumes/my-postgres-data/_data:/var/lib/postgresql/data

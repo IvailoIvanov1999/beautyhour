@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-vh {
+  height: 85vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(90deg, rgba(1, 20, 24, 1) 0%, rgba(140, 154, 168, 1) 100%);
+  background-size: 600% 600%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes arrive {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+.login-page, .register-page {
+  .register-errors {
+    .alert-danger {
+      padding: 10px;
+      border-radius: 5px;
+      max-height: 120px;
+      overflow-y: visible;
+      margin-bottom: 20px;
+    }
+
+    .error-list {
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+  }
+
+  .alert-danger {
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 120px;
+    overflow-y: visible;
+    margin-bottom: 20px;
+  }
+
+  .error-list {
+    padding-left: 20px;
+    margin-top: 5px;
+  }
+
+  .form-wrapper {
+    position: fixed;
+    top: 51%;
+    left: 50%;
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    animation: arrive 500ms ease-in-out 0.9s forwards;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 500px;
+  }
+
+
+  .form-wrapper h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  p a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  p a:hover {
+    text-decoration: underline;
+  }
+}
+

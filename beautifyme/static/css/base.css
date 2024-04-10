@@ -1,0 +1,72 @@
+.nav-logo-size {
+  height: 50px;
+  width: 80px;
+}
+
+.navbar {
+  z-index: 1000;
+  position: relative;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=url], input[type=number], textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 16px;
+  appearance: none;
+  background-size: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:hover {
+  border-color: #aaa;
+}
+
+select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+#footer {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+/*# sourceMappingURL=base.css.map */

@@ -1,0 +1,83 @@
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-product-page {
+
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .card-header {
+    background-color: #728394;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .button-save {
+
+    width: 30%;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: 36%;
+    color: white;
+    transition: transform 0.15s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+
+    &:after {
+      content: '';
+      background-color: #728394;
+      transition: transform 0.15s;
+      border-radius: 7px;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    &:hover::after {
+      transform: scale(1.1);
+    }
+  }
+}
+

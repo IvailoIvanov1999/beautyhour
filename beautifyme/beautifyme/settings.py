@@ -28,6 +28,8 @@ DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
+CSRF_TRUSTED_ORIGINS = [f'http://{x}:81' for x in os.getenv('ALLOWED_HOSTS', '').split(' ')]
+
 # Application definition
 
 INSTALLED_APPS = [
