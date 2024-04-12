@@ -5,7 +5,7 @@ from django.conf import settings
 
 def send_welcome_mail(email):
     mailjet = Client(auth=(settings.MAILJET_API_KEY, settings.MAILJET_SECRET_KEY), version='v3.1')
-    html_content = render_to_string('accounts/welcome-email.html', {'user_email': email, 'website_url': '#'})
+    html_content = render_to_string('accounts/welcome-email.html', {'user_email': email, 'website_url': 'https://beautyhour.azurewebsites.net/'})
     data = {
         'Messages': [
             {
